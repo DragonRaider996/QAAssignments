@@ -3,5 +3,5 @@ public interface IDatabase
 {
     public int getCount(String drug);
     public boolean productExist(String drug);
-    public boolean claimDrug(String drug, int amount);
+    public void claimDrug(String drug, int amount);
 }

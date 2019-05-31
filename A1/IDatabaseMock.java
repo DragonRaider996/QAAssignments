@@ -30,10 +30,9 @@ public class IDatabaseMock implements IDatabase{
     }
 
     @Override
-    public boolean claimDrug(String drug, int amount) {
+    public void claimDrug(String drug, int amount) {
         int count = drugsDetails.get(drug);
         int newCount = count - amount;
         drugsDetails.put(drug,newCount);
-        return true;
     }
 }
