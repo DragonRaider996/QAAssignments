@@ -27,4 +27,15 @@ public class Building extends BoardComponent
 	{
 		// Do nothing, I'm a leaf.
 	}
+
+	@Override
+	public void Update(Asteroid asteroid) {
+		if (this.buildingHealth > 0) {
+			this.buildingHealth = this.buildingHealth - 1;
+			if (this.buildingHealth == 0) {
+				GameBoard.Instance().DecrementBuildingCount();
+				this.parent.Remove(this);
+			}
+		}
+	}
 }

@@ -116,7 +116,11 @@ public class GameBoard
 	{
 		return buildingCount;
 	}
-	
+
+	public AsteroidImpact GetAsteroidImpact(){
+		return AsteroidImpact.getAsteroidImpact();
+	}
+
 	// Start the game.
 	public void StartGame()
 	{

@@ -23,6 +23,12 @@ public class AsteroidGameFactory implements IAsteroidGameFactory
 		Asteroid asteroid = new Asteroid(height);
 		return asteroid;
 	}
+
+	@Override
+	public BoardComponent MakeShield(BoardComponent boardComponent) {
+		Shield shield = new Shield(boardComponent);
+		return shield;
+	}
 	
 	@Override
 	public ArrayList<ArrayList<BoardComponent>> MakeBoard(int height, int width)
@@ -35,7 +41,9 @@ public class AsteroidGameFactory implements IAsteroidGameFactory
 			// Add squares equal to the width to the row.
 			for (int j = 0; j < width; j++)
 			{
-				row.add(MakeSquare());
+				Square square = (Square) MakeSquare();
+				GameBoard.Instance().GetAsteroidImpact().Attach(square);
+				row.add(square);
 			}
 			board.add(row);
 		}
@@ -81,17 +89,18 @@ public class AsteroidGameFactory implements IAsteroidGameFactory
 			}
 			case "SPAWN_BUILDING":
 			{
-				// TODO:  Implement a command to spawn a building.  It should be similar
-				//        to SPAWN_ASTEROID above.  The command must increment the building count!
+				int y = Integer.parseInt(args[1]);
+				int x = Integer.parseInt(args[0]);
+				BoardComponent boardComponent = GameBoard.Instance().GetBoard().get(x).get(y);
+				GameBoard.Instance().IncrementBuildingCount();
+				return new SpawnBuildingCommand(boardComponent, args);
 			}
 			case "SPAWN_SHIELD":
 			{
-				// TODO:  Implement a command that uses the Decorator pattern to decorate
-				//        a Square object with a shield.  The shield will have health,
-				//        like a building, hard coded to 2 health in the decorator object.
-				//			 While the shield is alive buildings in the square do not take damage from
-				//			 asteroid impacts.  When the shield health hits 0 it is destroyed and
-				//			 removed from decorating the Square.
+				int y = Integer.parseInt(args[0]);
+				int x = Integer.parseInt(args[1]);
+				BoardComponent boardComponent = GameBoard.Instance().GetBoard().get(x).get(y);
+				return new SpawnShieldCommand(boardComponent, args);
 			}
 		}
 		return null;

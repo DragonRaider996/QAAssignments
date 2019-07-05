@@ -23,6 +23,16 @@ public class Square extends BoardComponent
 		}
 	}
 
+	public boolean checkAsteroid(BoardComponent child){
+		ArrayList<BoardComponent> children = this.children;
+		for(BoardComponent boardComponent : children){
+			if(boardComponent.equals(child)){
+				return true;
+			}
+		}
+		return false;
+	}
+
 	@Override
 	public void Add(BoardComponent child)
 	{
@@ -35,5 +45,19 @@ public class Square extends BoardComponent
 	public void Remove(BoardComponent child)
 	{
 		children.remove(child);
+	}
+
+	@Override
+	public void Update(Asteroid asteroid) {
+		if(this.equals(asteroid.parent)) {
+			ArrayList<BoardComponent> childrenCopy = new ArrayList<BoardComponent>(children);
+			for (int i = 0; i < childrenCopy.size(); i++)
+			{
+				BoardComponent child = childrenCopy.get(i);
+				child.Update(asteroid);
+			}
+
+		}
+
 	}
 }
