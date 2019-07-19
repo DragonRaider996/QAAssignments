@@ -12,8 +12,8 @@ public class Help {
 
 	public String getHelp(String command) {
 		if (command != null && command.length() != 0) {
-			Command command1 = commands.get(command);
-			return command1.getCommand();
+			Command commandToExecute = commands.get(command);
+			return commandToExecute.getCommand();
 		}
 		return listAllCommands();
 	}
