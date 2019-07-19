@@ -1,45 +1,12 @@
-public class MathOperation
-{
-	public enum OperationType
-	{
-		DIVIDE,
-		MULTIPLY,
-		ADD,
-		SUBTRACT
-	};
+public abstract class MathOperation {
 
-	private int leftOperand;
-	private int rightOperand;
-	private OperationType operationType;
+	protected int leftOperand;
+	protected int rightOperand;
 
-	public MathOperation(OperationType operationType, int leftOperand, int rightOperand)
-	{
+	public MathOperation(int leftOperand, int rightOperand) {
 		this.leftOperand = leftOperand;
 		this.rightOperand = rightOperand;
-		this.operationType = operationType;
 	}
 
-	public int getResult()
-	{
-		switch (operationType)
-		{
-			case DIVIDE:
-			{
-				return leftOperand / rightOperand;
-			}
-			case MULTIPLY:
-			{
-				return leftOperand * rightOperand;
-			}
-			case ADD:
-			{
-				return leftOperand + rightOperand;
-			}
-			case SUBTRACT:
-			{
-				return leftOperand - rightOperand;
-			}
-		}
-		return 0;
-	}
+	public abstract int getResult();
 }
